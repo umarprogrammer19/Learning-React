@@ -32,7 +32,7 @@ const App = () => {
   return (
     <>
       <div className="main">
-        <h1>Hello World</h1>
+        <h1>Todo App</h1>
         <div className="todo">
           <form onSubmit={addTodo} className="todo-form">
             <input type="text" placeholder="Enter an item to add" ref={getItem} className="todo-input" />
