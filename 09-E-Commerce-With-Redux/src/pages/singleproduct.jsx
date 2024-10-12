@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { addToCart } from "../config/redux/reducers/cartSlice";
 
 export default function SingleProduct() {
     const params = useParams();
     const [products, setProducts] = useState(null);
+    const selector = useSelector(state => state.cart.cart);
     const dispatch = useDispatch();
     useEffect(() => {
         (async function () {
@@ -16,12 +17,13 @@ export default function SingleProduct() {
     });
 
     const addProductIntoCart = (event) => {
+        const isproductInTheCart = selector.some(item => item.product.id === products.id)
         event.preventDefault();
-        if (products) {
+        if (products && !isproductInTheCart) {
             dispatch(addToCart({
-                products: products,
+                products,
             }));
-        }
+        };
     }
 
     return (
