@@ -1,18 +1,28 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom"
+import { addToCart } from "../config/redux/reducers/cartSlice";
 
 export default function SingleProduct() {
     const params = useParams();
-
     const [products, setProducts] = useState(null);
+    const dispatch = useDispatch();
     useEffect(() => {
         (async function () {
             const response = await fetch(`https://fakestoreapi.com/products/${params.id}`);
             const data = await response.json();
             setProducts(data);
-            console.log(data);
         })()
-    })
+    });
+
+    const addProductIntoCart = (event) => {
+        event.preventDefault();
+        if (products) {
+            dispatch(addToCart({
+                products: products,
+            }));
+        }
+    }
 
     return (
         <>
@@ -25,7 +35,7 @@ export default function SingleProduct() {
                 <p>Price: {products.price}$</p>
                 <p>Rating: {products.rating.rate}</p>
                 <p>Remaining: {products.rating.count}</p>
-                <button className="bg-slate-700 text-white px-3 py-1 border rounded-xl w-28 h-10">Add To Cart</button>
+                <button className="bg-slate-700 text-white px-3 py-1 border rounded-xl w-28 h-10" onClick={addProductIntoCart}>Add To Cart</button>
             </div>}
         </>
     )

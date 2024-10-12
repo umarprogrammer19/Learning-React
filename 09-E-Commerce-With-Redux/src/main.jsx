@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './layout.jsx';
 import Products from './pages/products.jsx';
 import SingleProduct from './pages/singleproduct.jsx';
+import { Provider } from 'react-redux';
+import { store } from './config/redux/store/store.js';
 
 const router = createBrowserRouter([{
   path: "/",
@@ -19,6 +21,8 @@ const router = createBrowserRouter([{
 }]);
 
 createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}>
-  </RouterProvider>
+  <Provider store={store}>
+    <RouterProvider router={router}>
+    </RouterProvider>
+  </Provider>
 )
