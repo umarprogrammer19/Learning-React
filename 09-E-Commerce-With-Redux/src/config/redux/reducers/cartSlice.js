@@ -11,7 +11,6 @@ export const cartSlice = createSlice({
                 product: action.payload.products,
                 id: nanoid(),
             });
-            console.log(action.payload.products);
         }
     }
 });

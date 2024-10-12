@@ -1,7 +1,20 @@
+import { useSelector } from "react-redux";
+
 export default function Cart() {
+    const selector = useSelector(state => state.cart.cart);
     return (
         <>
-            <h1>This is Cart Products Will Be Shown Here</h1>
+            {selector.length > 0 ? selector.map(item => {
+                return <div className="border border-[black] w-88 mx-8 md:mx-32 p-4 flex flex-col gap-4 my-8" key={item.product.id}>
+                    <p>{item.product.category}</p>
+                    <h1>{item.product.title}</h1>
+                    <p>{item.product.description}</p>
+                    <img src={item.product.image} alt="Img" className="w-40 h-40" />
+                    <p>Price: {item.product.price}$</p>
+                    <p>Rating: {item.product.rating.rate}</p>
+                    <p>Remaining: {item.product.rating.count}</p>
+                </div>
+            }) : <h1 className="text-center">No Items In The Cart</h1>}
         </>
     );
 };
