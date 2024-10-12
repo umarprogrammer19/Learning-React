@@ -7,13 +7,16 @@ export const cartSlice = createSlice({
     },
     reducers: {
         addToCart: (state, action) => {
-            state.cart.push({
-                product: action.payload.products,
-                id: nanoid(),
-            });
+                state.cart.push({
+                    product: action.payload.products,
+                    id: nanoid(),
+                });
+        },
+        removeFromCart: (state, action) => {
+            state.cart.splice(action.payload.index, 1);
         }
     }
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
