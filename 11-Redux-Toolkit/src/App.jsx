@@ -22,6 +22,7 @@ export default function TodoApp() {
           {/* Input */}
           <input
             onChange={(e) => setCurrentTodo(e.target.value)}
+            value={currentTodo}
             type="text"
             className="border p-2 flex-grow rounded-lg"
             placeholder="Add a task..."
@@ -38,12 +39,20 @@ export default function TodoApp() {
         <ul>
           {todos.map((todo, index) => <li className="flex justify-between items-center bg-gray-200 p-2 rounded-lg mb-2" key={todo.id}>
             <span>{todo.items}</span>
-            <button
-              onClick={() => dispatch(deleteTodos(index))}
-              className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
-            >
-              Delete
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => dispatch(deleteTodos(index))}
+                className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => dispatch(deleteTodos(index))}
+                className="bg-green-500 text-white px-2 py-1 rounded-lg hover:bg-green-600"
+              >
+                Edit
+              </button>
+            </div>
           </li>)}
         </ul>
       </div>
