@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addTodos } from "./store/slices/todosSlice";
+import { addTodos, deleteTodos } from "./store/slices/todosSlice";
 import { useState } from "react";
 
 export default function TodoApp() {
@@ -35,9 +35,10 @@ export default function TodoApp() {
         </div>
         {/* Lists To be Rendred */}
         <ul>
-          {todos.map((todo) => <li className="flex justify-between items-center bg-gray-200 p-2 rounded-lg mb-2" key={todo.id}>
+          {todos.map((todo, index) => <li className="flex justify-between items-center bg-gray-200 p-2 rounded-lg mb-2" key={todo.id}>
             <span>{todo.items}</span>
             <button
+              onClick={() => dispatch(deleteTodos(index))}
               className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
             >
               Delete
