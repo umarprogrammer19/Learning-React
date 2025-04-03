@@ -35,8 +35,8 @@ export default function TodoApp() {
         </div>
         {/* Lists To be Rendred */}
         <ul>
-          {todos.map((todos) => <li className="flex justify-between items-center bg-gray-200 p-2 rounded-lg mb-2">
-            <span>{todos}</span>
+          {todos.map((todo) => <li className="flex justify-between items-center bg-gray-200 p-2 rounded-lg mb-2" key={todo.id}>
+            <span>{todo.items}</span>
             <button
               className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
             >
