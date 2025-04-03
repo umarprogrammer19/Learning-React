@@ -7,10 +7,14 @@ export const todosSlice = createSlice({
     },
     reducers: {
         addTodos: (state, action) => {
-            state.todos = [...state.todos, {
-                items: action.payload,
-                id: nanoid(),
-            }];
+            if (action.payload.length > 1) {
+                state.todos = [...state.todos, {
+                    items: action.payload.trim(),
+                    id: nanoid(),
+                }];
+            } else {
+                alert("Please Enter a valid Items")
+            }
         },
         deleteTodos: (state, action) => {
             state.todos.splice(action.payload, 1);

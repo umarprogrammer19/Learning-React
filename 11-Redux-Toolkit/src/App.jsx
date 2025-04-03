@@ -9,7 +9,8 @@ export default function TodoApp() {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    dispatch(addTodos(currentTodo))
+    dispatch(addTodos(currentTodo));
+    setCurrentTodo("");
   };
 
   return (
