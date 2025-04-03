@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addTodos, deleteTodos } from "./store/slices/todosSlice";
+import { addTodos, deleteAll, deleteTodos } from "./store/slices/todosSlice";
 import { useState } from "react";
 
 export default function TodoApp() {
@@ -15,7 +15,7 @@ export default function TodoApp() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-96">
+      <div className="bg-white shadow-lg rounded-lg p-6 min-w-[500px]">
         {/* Heading */}
         <h2 className="text-xl font-bold mb-4 text-center">Todo List</h2>
         <div className="flex space-x-2 mb-4">
@@ -32,8 +32,14 @@ export default function TodoApp() {
             onClick={handleAdd}
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
           >
-            Add
+            Add Items
           </button>
+          {todos.length > 1 && <button
+            onClick={() => dispatch(deleteAll())}
+            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+          >
+            Delete All
+          </button>}
         </div>
         {/* Lists To be Rendred */}
         <ul>

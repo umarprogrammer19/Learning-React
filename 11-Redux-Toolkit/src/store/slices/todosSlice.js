@@ -30,11 +30,14 @@ export const todosSlice = createSlice({
             } else {
                 alert("Please Enter a valid Items")
             }
+        },
+        deleteAll: (state, action) => {
+            state.todos = []
         }
     },
 
 });
 
-export const { addTodos, deleteTodos } = todosSlice.actions;
+export const { addTodos, deleteTodos, deleteAll } = todosSlice.actions;
 
 export default todosSlice.reducer;
