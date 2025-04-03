@@ -7,37 +7,39 @@ export const todosSlice = createSlice({
     },
     reducers: {
         addTodos: (state, action) => {
-            if (action.payload.length > 1) {
-                if (state.todos.find((item) => action.payload.trim() == item.items)) {
-                    alert("This Item Already Added")
+            const trimmedText = action.payload.trim();
+            if (trimmedText.length > 1) {
+                if (state.todos.some((item) => item.items === trimmedText)) {
+                    console.warn("This item is already added.");
                 } else {
-                    state.todos = [...state.todos, {
-                        items: action.payload.trim(),
+                    state.todos.push({
+                        items: trimmedText,
                         id: nanoid(),
-                    }];
+                    });
                 }
             } else {
-                alert("Please Enter a valid Items")
+                console.warn("Please enter a valid item.");
             }
         },
         deleteTodos: (state, action) => {
-            state.todos.splice(action.payload, 1);
-            state.todos = [...state.todos]
+            state.todos = state.todos.filter((_, index) => index !== action.payload);
         },
         editTodos: (state, action) => {
-            if (action.payload.length > 1) {
-                state.todos.splice(action.payload.index, 1, action.payload.newValue);
+            const { index, newValue } = action.payload;
+            if (newValue.trim().length > 1) {
+                state.todos[index] = {
+                    items: newValue.trim(),
+                    id: nanoid()
+                };
             } else {
-                alert("Please Enter a valid Items")
+                console.warn("Please enter a valid value.");
             }
         },
-        deleteAll: (state, action) => {
-            state.todos = []
+        deleteAll: (state) => {
+            state.todos = [];
         }
-    },
-
+    }
 });
 
-export const { addTodos, deleteTodos, deleteAll } = todosSlice.actions;
-
+export const { addTodos, deleteTodos, deleteAll, editTodos } = todosSlice.actions;
 export default todosSlice.reducer;
