@@ -1,0 +1,1 @@
+export const BASE_URL = import.meta.env.NODE_ENV === "production" ? "" : "http://localhost:8000/api";

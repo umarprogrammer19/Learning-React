@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addTodos, deleteAll, deleteTodos, editTodos } from "./store/slices/todosSlice";
+import { addTodos, deleteAll, deleteTodos, editTodos } from "../store/slices/todosSlice";
 import { useState } from "react";
 
-export default function TodoApp() {
+export default function Home() {
   const { todos } = useSelector(state => state.todosReducer);
   const dispatch = useDispatch();
   const [currentTodo, setCurrentTodo] = useState("");
