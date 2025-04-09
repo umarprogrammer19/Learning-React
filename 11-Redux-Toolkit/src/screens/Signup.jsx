@@ -34,7 +34,7 @@ export default function SignupPage() {
                 body: JSON.stringify(payload)
             });
             const data = await res.json()
-            if (!res.ok) setError(data.message);
+            if (!res.ok) return setError(data.message);
 
             setError(null);
             navigate("/login")

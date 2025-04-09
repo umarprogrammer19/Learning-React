@@ -1,15 +1,44 @@
 "use client"
 
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { BASE_URL } from "../api/BASE_URL"
 
 export default function LoginPage() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState(null);
+    const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-    }
+        try {
+            if (!email || !password) return setError("Invalid Email Or Password");
+
+            const payload = {
+                email,
+                password
+            }
+
+            const res = await fetch(`${BASE_URL}/v1/login`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (!res.ok) return setError(data.message);
+            setError(null);
+            navigate("/");
+        } catch (error) {
+            console.warn(error.message);
+            setError(error.message)
+        }
+    };
+
+    if (error) console.log(error);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-indigo-50">
@@ -34,9 +63,8 @@ export default function LoginPage() {
                             name="email"
                             type="email"
                             autoComplete="email"
-                            required
-                            value={formData.email}
-                            onChange={handleChange}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 outline-none"
                             placeholder="Enter your email"
                         />
@@ -53,14 +81,13 @@ export default function LoginPage() {
                             name="password"
                             type="password"
                             autoComplete="current-password"
-                            required
-                            value={formData.password}
-                            onChange={handleChange}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 outline-none"
                             placeholder="Enter your password"
                         />
                     </div>
-
+                    {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
                     <div>
                         <button
                             type="submit"

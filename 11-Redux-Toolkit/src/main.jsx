@@ -2,11 +2,11 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
-import { store } from './store/store.js'
 import Layout from './Layout.jsx'
 import Home from './screens/Home.jsx'
-import SignupPage from './screens/Signup.jsx'
 import LoginPage from './screens/Login.jsx'
+import SignupPage from './screens/Signup.jsx'
+import { store } from './store/store.js'
 
 const router = createBrowserRouter([{
   path: "/",
